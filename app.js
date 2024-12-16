@@ -1,5 +1,5 @@
 const express = require('express');
-// aller chercher la methode spécifique '{}'
+// aller chercher la méthode spécifique '{}'
 const { success } = require('./helper.js');
 const pokemons = require('./mock-pokemon');
 const app = express();
@@ -17,15 +17,17 @@ app.get('/api/pokemons/:id', (req, res) => {
     const pokemon = pokemons.find(pokemon => pokemon.id === id)
     const message = 'Un pokémon a bien était trouvé.'
 
-    // retourner une reponse Json avec la méthode success
+    // retourner une réponse Json avec la méthode succes
     res.json(success(message, pokemon))
 
 })
 
 
-// Route GET pour parcourir les tableaux de tous les Pokémon. Le total affiche 12
+// route 2 pour récupérer tous les Pokémon et retourner en JSON
 app.get('/api/pokemons', (req, res) => {
- res.send(`Il y a en tout ${pokemons.length} pokémons dans le pokédex pour le moment.`)
+ const message =  'La liste des pokémons a bien été récupérée.'
+ res.json(success(message, pokemons))
+
 })
 
 
@@ -33,3 +35,11 @@ app.get('/api/pokemons', (req, res) => {
 app.listen(port, () => {
   console.log(`Notre application node est démarrée sur : http://localhost:${port}`);
 });
+
+
+// Route GET pour parcourir les tableaux de tous les Pokémon. Le total affiche 12
+/*
+app.get('/api/pokemons', (req, res) => {
+ res.send(`Il y a en tout ${pokemons.length} pokémons dans le pokédex pour le moment.`)
+})
+*/

@@ -4,7 +4,7 @@ exports.success = (message, data) => {
     return {message,data};
 };
 
-// Méthode 2 
+// Méthode 2 on remplace const par exports.sucess
 /*
   exports.success = (message,data) => {
     return {
