@@ -16,7 +16,7 @@ res.send(`Vous avez demander le pokémon ${pokemon.name}`)
 
 
 app.get('/api/pokemons', (req, res) => {
- res.send(`Il y a ${pokemons.length} pokémons dans le pokédex pour le moment.`)
+ res.send(`Il y a en tout ${pokemons.length} pokémons dans le pokédex pour le moment.`)
 })
 
 
