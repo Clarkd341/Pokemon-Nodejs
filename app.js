@@ -1,4 +1,5 @@
 const express = require('express');
+const { success } = require('./helper.js');
 const pokemons = require('./mock-pokemon');
 const app = express();
 const port = 3000;
@@ -13,8 +14,10 @@ app.get('/api/pokemons/:id', (req, res) => {
     const id = parseInt(req.params.id)
     // Recherche le Pokémon correspondant à l'ID dans le tableau 'pokemons'
     const pokemon = pokemons.find(pokemon => pokemon.id === id)
-    // retourner une reponse Json
-res.json(pokemon)
+    const message = 'Un pokémon a bien était trouvé.'
+    
+    // retourner une reponse Json avec la méthode success
+    res.json(success(message, pokemon))
 
 })
 

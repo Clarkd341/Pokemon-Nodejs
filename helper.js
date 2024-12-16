@@ -1,9 +1,8 @@
 
 // Méthode 3 plus court
-exports.success = (message,data) => {
-    return {message, data }
-  }
-
+exports.success = (message, data) => {
+    return {message,data};
+};
 
 // Méthode 2 
 /*
