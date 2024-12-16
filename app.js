@@ -13,7 +13,8 @@ app.get('/api/pokemons/:id', (req, res) => {
     const id = parseInt(req.params.id)
     // Recherche le Pokémon correspondant à l'ID dans le tableau 'pokemons'
     const pokemon = pokemons.find(pokemon => pokemon.id === id)
-res.send(`Vous avez demander le pokémon ${pokemon.name}`)
+    // retourner une reponse Json
+res.json(pokemon)
 
 })
 
