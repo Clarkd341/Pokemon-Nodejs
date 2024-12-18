@@ -3,7 +3,7 @@ const morgan = require('morgan')
 const favicon = require('serve-favicon')
 const bodyparser = require('body-parser')
 const { success, getUniqueId } = require('./helper.js')
-const pokemons = require('./mock-pokemon')
+let pokemons = require('./mock-pokemon')
 const app = express()
 const port = 3000
 
@@ -40,6 +40,40 @@ app.post('/api/pokemons', (req, res) => {
   const message = `Le pokémon ${pokemonCreated.name} a bien été créé.`;
   res.json(success(message, pokemonCreated));
 });
+
+// Modifier une donnée existante avec PUT  par la suite vérification sur Insomnia
+app.put('/api/pokemons/:id', (req, res) => {
+  const id = parseInt(req.params.id); 
+  const pokemonUpdate = { ...req.body, id: id };
+
+  // Parcourir la liste des Pokémon  qui correspond à l'ID fonctionne pareil avec if else (? et :) 
+  pokemons = pokemons.map(pokemon => {
+      return pokemon.id === id ? pokemonUpdate : pokemon;
+  });
+
+  const message = `Le Pokémon ${pokemonUpdate.name} a bien été modifié.`;
+  res.json(success(message, pokemonUpdate));
+});
+
+
+// Delete verification dans Insomnia
+app.delete('/api/pokemons/:id',(req,res) => {
+
+   // On recupere L'id du pokémon
+  const id = parseInt(req.params.id);
+  // cherche qui a id
+  const pokemondelete = pokemons.find(pokemon => pokemon.id === id);
+  // un petit filtrage de pokémon pour supprimer id correspondant
+  pokemons = pokemons.filter(pokemon => pokemon.id !== id);
+
+
+  // et ensuite le petite message qu'il faut pour confirmer le tout
+  const message = `Le pokemon ${pokemondelete.name} a bien été supprimé.`;
+  res.json(success(message, pokemondelete));
+
+});
+
+
 
 // route 2 pour récupérer tous les Pokémon et retourner en JSON
 app.get('/api/pokemons', (req, res) => {
