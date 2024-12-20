@@ -1,11 +1,28 @@
-const express = require('express')
-const morgan = require('morgan')
-const favicon = require('serve-favicon')
-const bodyparser = require('body-parser')
-const { success, getUniqueId } = require('./helper.js')
-let pokemons = require('./mock-pokemon')
-const app = express()
-const port = 3000
+const express = require('express');
+const morgan = require('morgan');
+const favicon = require('serve-favicon');
+const bodyparser = require('body-parser');
+const { Sequelize } = require('sequelize');
+const { success, getUniqueId } = require('./helper.js');
+let pokemons = require('./mock-pokemon');
+const app = express();
+const port = 3000;
+
+// Sequilze
+const sequilze = new Sequelize(
+  'pokedex',
+  'root',
+  '',
+  {
+   host: 'localhost',
+   dialect: 'mysql',
+   dialectOption: {
+    timezone: 'Etc/GMT-2'
+   },
+   loggin: false
+  }
+)
+
 
 // utlisation de middleware morgan et favicon combinaison
 app
