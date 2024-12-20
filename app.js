@@ -8,22 +8,26 @@ let pokemons = require('./mock-pokemon');
 const app = express();
 const port = 3000;
 
-// Sequilze
-const sequilze = new Sequelize(
+// Configuration Sequelize
+const sequelize = new Sequelize(
   'pokedex',
   'root',
   '',
   {
-   host: 'localhost',
-   dialect: 'mysql',
-   dialectOption: {
-    timezone: 'Etc/GMT-2'
-   },
-   loggin: false
+    host: 'localhost',
+    dialect: 'mariadb',
+    dialectOptions: {
+      timezone: 'Etc/GMT-2'
+    },
+    logging: false
   }
-)
+);
+// message de connexion base de Données ou message d'erreur
+sequelize.authenticate()
+  .then(() => console.log('La connexion à la base de données a bien été établie'))
+  .catch(error => console.log(`Impossible de se connecter à la base de données erreur : ${error}`));
 
-
+  
 // utlisation de middleware morgan et favicon combinaison
 app
 .use(favicon(__dirname + '/favicon.ico'))
